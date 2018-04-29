@@ -11,7 +11,7 @@ public class Message implements Serializable {
 
     private String message;
     private Object object;
-
+    
     /**
      * Método constructor 1
      * @param messageCode
