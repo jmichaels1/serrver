@@ -22,7 +22,7 @@ public class HandleOperation {
      * Método Constructor
      */
     public HandleOperation(ObjectOutputStream dos) {
-        dbManager = new DbManager("asico", "root", "root");
+        dbManager = new DbManager("asico", "root", "michael123");
         this.dos = dos;
     }
 
