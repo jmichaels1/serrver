@@ -1,13 +1,12 @@
 package server;
 
-import model.CalendarioBase;
+import model.Dato;
 import model.HandleOperation;
-import model.Message;
 
 import java.io.*;
 import java.net.Socket;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +26,6 @@ public class ServerThread extends Thread {
      */
     public ServerThread(Socket socket) {
         this.socket = socket;
-
     }
 
     @Override
@@ -66,7 +64,7 @@ public class ServerThread extends Thread {
      */
     private void processRequest() throws IOException, ClassNotFoundException {
 
-        Message message = (Message) dis.readObject();
+        Dato message = (Dato) dis.readObject();
         handleOperation = new HandleOperation(dos);
 
         switch (message.getMessageCode()) {
@@ -78,13 +76,16 @@ public class ServerThread extends Thread {
                 dos.writeUTF("El día es " + LocalDate.now());
                 break;
 
-            case "firstListBaseCalendar":
-                handleOperation.insertBaseCalendar((ArrayList<CalendarioBase>) message.getObject());
-                break;
-
             case "test" :
                 System.out.println("entra aqui");
                 handleOperation.getCalendariBase_test(message);
+                break;
+
+            case "comprobarCuenta":
+                handleOperation.comprobarCuenta((Map<String, String>) message.getObject());
+                break;
+
+            case "getPlanificacionCalendarios":
                 break;
         }
     }

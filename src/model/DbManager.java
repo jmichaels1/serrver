@@ -1,6 +1,6 @@
 package model;
 
-import model.CalendarioBase;
+import entity.CalendarioBase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -75,7 +75,7 @@ public class DbManager {
         for (int i = 0; i < data.size(); i++) {
             try {
                 ps = con.prepareStatement(query);
-                ps.setString(1, data.get(i).getId());
+                ps.setString(1, data.get(i).getIdDate());
                 ps.setBoolean(2, data.get(i).isSummer());
                 ps.setBoolean(3, data.get(i).isFestivo());
                 ps.execute();

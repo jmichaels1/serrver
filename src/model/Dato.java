@@ -2,40 +2,27 @@ package model;
 
 import java.io.Serializable;
 
-/**
- *  Created by J Michael
- */
-public class Message implements Serializable {
+public class Dato implements Serializable {
 
     private String messageCode;
 
     private String message;
     private Object object;
-    
+
     /**
-     * Método constructor 1
+     * Constructor de envío de mensajes
      * @param messageCode
      */
-    public Message(String messageCode) {
+    public Dato(String messageCode) {
         this.messageCode = messageCode;
     }
 
     /**
-     * Método constructor 2
-     * @param messageCode
-     * @param message
-     */
-    public Message(String messageCode, String message) {
-        this.messageCode = messageCode;
-        this.message = message;
-    }
-
-    /**
-     * Método constructor 3
+     * Constructor con parametrización de código de envío y objeto
      * @param messageCode
      * @param object
      */
-    public Message(String messageCode, Object object) {
+    public Dato(String messageCode, Object object) {
         this.messageCode = messageCode;
         this.object = object;
     }
@@ -71,9 +58,9 @@ public class Message implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Message message = (Message) o;
+        Dato dato = (Dato) o;
 
-        return messageCode != null ? messageCode.equals(message.messageCode) : message.messageCode == null;
+        return messageCode != null ? messageCode.equals(dato.messageCode) : dato.messageCode == null;
     }
 
     @Override
@@ -83,7 +70,7 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return "Message{" +
+        return "Dato{" +
                 "messageCode='" + messageCode + '\'' +
                 ", message='" + message + '\'' +
                 ", object=" + object +

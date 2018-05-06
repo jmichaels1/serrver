@@ -11,9 +11,9 @@ import java.util.logging.Logger;
  */
 public class MultiThreadedServer implements Runnable {
 
-    protected  final int PORT = 9090;
+    protected final int PORT = 9090;
     protected ServerSocket serverSocket = null;
-    protected  boolean isStoped = false;
+    protected boolean isStoped = false;
 
 
     @Override
@@ -30,11 +30,9 @@ public class MultiThreadedServer implements Runnable {
 
                 clientSocket = serverSocket.accept();
 
-                System.out.println("nueva conexión()");
+                System.out.println("conexión: " + clientSocket.getInetAddress().getHostAddress());
 
-                new Thread(
-                        new ServerThread(clientSocket))
-                .start();
+                new Thread(new ServerThread(clientSocket)).start();
             }
 
         } catch (IOException e) {
