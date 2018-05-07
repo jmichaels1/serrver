@@ -86,6 +86,7 @@ public class ServerThread extends Thread {
                 break;
 
             case "getPlanificacionCalendarios":
+                handleOperation.getPlanificacionCalendarios((Map<String, Object>) message.getObject());
                 break;
         }
     }

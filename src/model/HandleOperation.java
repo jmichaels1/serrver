@@ -105,8 +105,8 @@ public class HandleOperation {
             else {
                 Sesion s = new Sesion();
                 s.setActivo(true);
-                s.setAsignatura("Programació " + i);
-                s.setAula("F2G");
+                s.setAsignatura("Programació " + i*10);
+                s.setAula("F"+i+"G");
                 s.setColorFondo("#00aa00");
                 s.setColorTexto("#000000");
                 s.setConfirmAula(true);
@@ -114,10 +114,10 @@ public class HandleOperation {
                 s.setConfirmDocente1(true);
                 s.setConfirmDocente2(true);
                 s.setConfirmWarning(false);
-                s.setContenidos("CBO");
+                s.setContenidos("CBO " + i*30);
                 s.setId(200+i);
                 s.setMaster1((Master) data.get("master1"));
-
+                s.setTipoAula("S");
 
                 if (i % 4 == 1) {
                     // es común
@@ -128,6 +128,7 @@ public class HandleOperation {
 
                     s.setMaster2(p2.getMaster());
                     s.setNota1("Hola");
+                    s.setTipoAula("L");
 
                     p2.setSesion(s);
                 }
@@ -138,6 +139,7 @@ public class HandleOperation {
             if (p1.getDia() != 0) planificacionDias.add(p1);
             if (p2.getDia() != 0) planificacionDias.add(p2);
         }
+        System.out.println("getPlanificacionCalendarios");
         message = new Dato("getPlanificacionCalendarios", planificacionDias);
     }
 
