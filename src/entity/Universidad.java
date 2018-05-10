@@ -1,13 +1,13 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Universidad implements Serializable {
     private int id;
     private String nombre;
 
-    public Universidad() {
-    }
+    public Universidad() {}
 
     public Universidad(int id, String nombre) {
         this.id = id;
@@ -28,5 +28,26 @@ public class Universidad implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Universidad that = (Universidad) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Universidad{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                '}';
     }
 }

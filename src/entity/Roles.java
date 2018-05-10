@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Roles implements Serializable {
     private int id;
@@ -8,8 +9,7 @@ public class Roles implements Serializable {
     private String perms;
     private String color;
 
-    public Roles() {
-    }
+    public Roles() {}
 
     public int getId() {
         return id;
@@ -41,5 +41,28 @@ public class Roles implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Roles roles = (Roles) o;
+        return id == roles.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Roles{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", perms='" + perms + '\'' +
+                ", color='" + color + '\'' +
+                '}';
     }
 }

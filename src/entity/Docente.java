@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Docente implements Serializable {
     private int id;
@@ -11,8 +12,7 @@ public class Docente implements Serializable {
     private String telefono;
     private Universidad universidad;
 
-    public Docente() {
-    }
+    public Docente() {}
 
     public Docente(int id, String code, String nombre) {
         this.id = id;
@@ -74,5 +74,32 @@ public class Docente implements Serializable {
 
     public void setUniversidad(Universidad universidad) {
         this.universidad = universidad;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Docente docente = (Docente) o;
+        return id == docente.id &&
+                Objects.equals(code, docente.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, code);
+    }
+
+    @Override
+    public String toString() {
+        return "Docente{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", email='" + email + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", universidad=" + universidad +
+                '}';
     }
 }
