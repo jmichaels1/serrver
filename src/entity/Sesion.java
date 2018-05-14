@@ -38,12 +38,12 @@ public class Sesion implements Serializable {
         this.id = id;
         this.aula = aula;
         this.tipoAula = tipoAula;
-        this.docente1 = docente1;
-        this.docente2 = docente2;
+        if (docente1 != null)this.docente1 = docente1;
+        if (docente2 != null)this.docente2 = docente2;
         this.asignatura = asignatura;
         this.contenidos = contenidos;
-        this.master1 = master1;
-        this.master2 = master2;
+        if (master1 != null)this.master1 = master1;
+        if (master2 != null)this.master2 = master2;
     }
 
     public Sesion(int id, String aula, String tipoAula, Docente docente1, Docente docente2, boolean confirmContenidos, boolean confirmAula, boolean confirmDocente1, boolean confirmDocente2, boolean confirmWarning, String confirmNota, String asignatura, String contenidos, boolean activo, String colorFondo, String colorTexto, String nota0, String nota1, String nota2, String nota3, String nota4, String nota5, String nota6, Master master1, Master master2, int version) {

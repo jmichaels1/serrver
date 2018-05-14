@@ -27,14 +27,7 @@ public class HandleOperation {
         this.dos = dos;
     }
 
-    /**
-     * @param data
-     */
-    public void insertBaseCalendar(ArrayList<CalendarioBase> data) throws IOException {
-        dbManager.firstInsertCalendarioBase(data);
-        message = new Dato("firstInsertCalendarioBase_response", new Boolean(true));
-        dos.writeObject(message);
-    }
+    // APIS
 
     /**
      * @param data
@@ -78,11 +71,36 @@ public class HandleOperation {
     }
 
     /**
+     * @param token
+     */
+    public void comprobarToken(Token token) throws IOException {
+        message = new Dato("comprobarToken", token.isActivo());
+        System.out.println("comprobarToken");
+        dos.writeObject(message);
+    }
+
+    // GETTERS
+
+    /**
+     * getPlanificacionCalendarios
+     * @param universidad
+     */
+    public void getMasters(Universidad universidad) throws IOException {
+        ArrayList<Master> masters = new ArrayList<>();
+        for (int i = 0; i<9; i++) {
+            masters.add(new Master(100+i*3, "MC"+i, "Máster Complutense "+i*33));
+        }
+        message = new Dato("getMasters", masters);
+        System.out.println("getMasters");
+        dos.writeObject(message);
+    }
+
+    /**
      * getPlanificacionCalendarios
      * @param data
      */
     public void getPlanificacionCalendarios(Map<String, Object> data) throws IOException {
-        ArrayList<PlanificacionCalendarios> planificacionDias = new ArrayList<>();
+        ArrayList<DiaPlanificado> planificacionDias = new ArrayList<>();
         int iWeek = 1;
         for (int i = 1; i<22; i++) {
             if (iWeek == 8) iWeek = 1;
@@ -98,8 +116,8 @@ public class HandleOperation {
 
             cb.setWeekDay(iWeek++);
 
-            PlanificacionCalendarios p1 = new PlanificacionCalendarios();
-            PlanificacionCalendarios p2 = new PlanificacionCalendarios();
+            DiaPlanificado p1 = new DiaPlanificado();
+            DiaPlanificado p2 = new DiaPlanificado();
 
             if (finSemana.contains(i)) cb.setFestivo(true);
             else {
@@ -141,6 +159,7 @@ public class HandleOperation {
         }
         System.out.println("getPlanificacionCalendarios");
         message = new Dato("getPlanificacionCalendarios", planificacionDias);
+        dos.writeObject(message);
     }
 
     /**
@@ -162,5 +181,26 @@ public class HandleOperation {
 
         System.out.println("test_object : " + message.toString());
 
+    }
+
+    // SETTERS
+
+    /**
+     * @param token
+     */
+    public void logoutToken(Token token) throws IOException {
+        token.setActivo(false);
+        System.out.println("logoutToken");
+        message = new Dato("logoutToken", Boolean.TRUE);
+        dos.writeObject(message);
+    }
+
+    /**
+     * @param data
+     */
+    public void insertBaseCalendar(ArrayList<CalendarioBase> data) throws IOException {
+        dbManager.firstInsertCalendarioBase(data);
+        message = new Dato("firstInsertCalendarioBase_response", Boolean.TRUE);
+        dos.writeObject(message);
     }
 }

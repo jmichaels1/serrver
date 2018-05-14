@@ -1,5 +1,7 @@
 package server;
 
+import entity.Token;
+import entity.Universidad;
 import model.Dato;
 import model.HandleOperation;
 
@@ -85,8 +87,20 @@ public class ServerThread extends Thread {
                 handleOperation.comprobarCuenta((Map<String, String>) message.getObject());
                 break;
 
+            case "comprobarToken":
+                handleOperation.comprobarToken((Token) message.getObject());
+                break;
+
+            case "getMasters":
+                handleOperation.getMasters((Universidad) message.getObject());
+                break;
+
             case "getPlanificacionCalendarios":
                 handleOperation.getPlanificacionCalendarios((Map<String, Object>) message.getObject());
+                break;
+
+            case "logoutToken":
+                handleOperation.logoutToken((Token) message.getObject());
                 break;
         }
     }
