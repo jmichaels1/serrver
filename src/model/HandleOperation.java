@@ -23,7 +23,7 @@ public class HandleOperation {
      * Método Constructor
      */
     public HandleOperation(ObjectOutputStream dos) {
-        //dbManager = new DbManager("asico", "root", "michael123");
+        //dbManager = new DbManager("asico_db", "asico_dbadmin", "comomola");
         this.dos = dos;
     }
 
@@ -82,13 +82,55 @@ public class HandleOperation {
     // GETTERS
 
     /**
+     * getToken
+     * @param token
+     */
+    public void getToken(String token) throws IOException {
+        Token t = new Token();
+        if (token.equals("897dyfs87gy89sdfusd98f9sdg")) {
+            Universidad universidad = new Universidad();
+            universidad.setId(1);
+            universidad.setNombre("UPC");
+
+            Roles rol = new Roles();
+            rol.setId(1);
+            rol.setNombre("Gestor");
+            rol.setColor("#00aa00");
+            rol.setPerms("010");
+
+            Usuario usuario = new Usuario();
+            usuario.setEmail("mjl1010@gmx.es");
+            usuario.setId(1234);
+            usuario.setNick("mjl1010");
+            //usuario.setPassword("f06eb4703b571d253d7e2b0f526cc20083a1c29ba0eebb395af3751c23e509a74de19021cbc519b29637dff3611e70d4e2a8fdcbe89699f537bc4d908f565b3b97abfa7f1bf2");
+            usuario.setPassword("1234");
+            usuario.setRol(rol);
+            usuario.setUniversidad(universidad);
+
+            t.setActivo(true);
+            t.setCaduca(new Date());
+            t.setId(2389478);
+            t.setToken("897dyfs87gy89sdfusd98f9sdg");
+            t.setUsuario(usuario);
+        }
+        message = new Dato("comprobarToken", t);
+        System.out.println("getToken");
+        dos.writeObject(message);
+    }
+
+    /**
      * getPlanificacionCalendarios
      * @param universidad
      */
     public void getMasters(Universidad universidad) throws IOException {
         ArrayList<Master> masters = new ArrayList<>();
-        for (int i = 0; i<9; i++) {
-            masters.add(new Master(100+i*3, "MC"+i, "Máster Complutense "+i*33));
+        for (int i = 0; i<30; i++) {
+            Master m = new Master(100+i*3, "MC"+i, "Máster Complutense "+i*33);
+            if (i%6 == 1) {
+                m.setMasterVinculado(masters.get(i-1));
+                masters.get(i-1).setMasterVinculado(m);
+            }
+            masters.add(m);
         }
         message = new Dato("getMasters", masters);
         System.out.println("getMasters");

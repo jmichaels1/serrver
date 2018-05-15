@@ -91,6 +91,10 @@ public class ServerThread extends Thread {
                 handleOperation.comprobarToken((Token) message.getObject());
                 break;
 
+            case "getToken":
+                handleOperation.getToken((String) message.getObject());
+                break;
+
             case "getMasters":
                 handleOperation.getMasters((Universidad) message.getObject());
                 break;
