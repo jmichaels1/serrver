@@ -103,6 +103,10 @@ public class ServerThread extends Thread {
                 handleOperation.getPlanificacionCalendarios((Map<String, Object>) message.getObject());
                 break;
 
+            case "getCursos":
+                handleOperation.getCursos((Universidad) message.getObject());
+                break;
+
             case "logoutToken":
                 handleOperation.logoutToken((Token) message.getObject());
                 break;

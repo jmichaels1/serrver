@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="server-assico">
+    <output-path>$PROJECT_DIR$/out/artifacts/server_assico</output-path>
+    <root id="archive" name="server-assico.jar">
+      <element id="module-output" name="server" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/driver/mysql-connector-java-5.1.23-bin.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

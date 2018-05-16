@@ -119,13 +119,13 @@ public class HandleOperation {
     }
 
     /**
-     * getPlanificacionCalendarios
+     * getMasters
      * @param universidad
      */
     public void getMasters(Universidad universidad) throws IOException {
         ArrayList<Master> masters = new ArrayList<>();
         for (int i = 0; i<30; i++) {
-            Master m = new Master(100+i*3, "MC"+i, "Máster Complutense "+i*33);
+            Master m = new Master(100+i*3, "MC"+i, "Máster en A"+i*33+"lborg");
             if (i%6 == 1) {
                 m.setMasterVinculado(masters.get(i-1));
                 masters.get(i-1).setMasterVinculado(m);
@@ -134,6 +134,19 @@ public class HandleOperation {
         }
         message = new Dato("getMasters", masters);
         System.out.println("getMasters");
+        dos.writeObject(message);
+    }
+
+    /**
+     * Select distinct curso_academico from CalendarioBase where universidad
+     * getCursos
+     * @param universidad
+     */
+    public void getCursos(Universidad universidad) throws IOException {
+        ArrayList<String> cursos = new ArrayList<>();
+        for (int i = 2000; i<2018; i++) cursos.add(i + "-" + (i+1));
+        message = new Dato("getCursos", cursos);
+        System.out.println("getCursos");
         dos.writeObject(message);
     }
 
