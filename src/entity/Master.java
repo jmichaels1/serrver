@@ -90,7 +90,7 @@ public class Master implements Serializable {
                 ", nombre='" + nombre + '\'' +
                 ", diasLesctivosPrincipales='" + diasLesctivosPrincipales + '\'' +
                 ", universidad=" + universidad +
-                ", masterVinculado=" + masterVinculado +
+                ", masterVinculado=" + masterVinculado.getId() + ": " + masterVinculado.getNombre() +
                 '}';
     }
 }
