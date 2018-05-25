@@ -7,7 +7,10 @@ import model.HandleOperation;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,30 +35,19 @@ public class ServerThread extends Thread {
 
     @Override
     public void run() {
-
         try {
-
             dis = new ObjectInputStream(socket.getInputStream());
             dos = new ObjectOutputStream(socket.getOutputStream());
-
             processRequest();
-            dos.writeUTF("adios");
-
-
         } catch (IOException e) {
             e.printStackTrace();
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, e.getMessage(), e);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            closeConnection();
-
-//            try {
-//                dis.close();
-//                dos.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+                closeConnection();
         }
 
     }
@@ -64,7 +56,7 @@ public class ServerThread extends Thread {
      * process Request
      *
      */
-    private void processRequest() throws IOException, ClassNotFoundException {
+    private void processRequest() throws IOException, ClassNotFoundException, SQLException {
 
         Dato message = (Dato) dis.readObject();
         handleOperation = new HandleOperation(dos);
@@ -79,7 +71,6 @@ public class ServerThread extends Thread {
                 break;
 
             case "test" :
-                System.out.println("entra aqui");
                 handleOperation.getCalendariBase_test(message);
                 break;
 
@@ -100,7 +91,7 @@ public class ServerThread extends Thread {
                 break;
 
             case "getPlanificacionCalendarios":
-                handleOperation.getPlanificacionCalendarios((Map<String, Object>) message.getObject());
+//                handleOperation.getPlanificacionCalendarios((Map<String, Object>) message.getObject());
                 break;
 
             case "getCursos":
@@ -110,6 +101,9 @@ public class ServerThread extends Thread {
             case "logoutToken":
                 handleOperation.logoutToken((Token) message.getObject());
                 break;
+            case "firstListBaseCalendar":
+                handleOperation.insertDataInitCalendar((HashMap<String, ArrayList>) message.getObject());
+                break;
         }
     }
 
@@ -118,15 +112,13 @@ public class ServerThread extends Thread {
      * clos connection
      */
     public void closeConnection() {
-
         try {
-
             socket.close();
-
+            dis.close();
+            dos.close();
         } catch (IOException e) {
             e.printStackTrace();
             Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, e.getMessage(), e);
         }
-
     }
 }

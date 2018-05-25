@@ -15,11 +15,16 @@ public class DiaPlanificado implements Serializable {
 
     public DiaPlanificado() {}
 
-    public DiaPlanificado(CalendarioBase pc, int dia, Universidad uni, Master master) {
-        this.calendarioBase = pc;
+    public DiaPlanificado(CalendarioBase cb, int dia, Universidad uni, Master master) {
+        this.calendarioBase = cb;
         this.dia = dia;
         this.universidad = uni;
         this.master = master;
+        version = 1;
+    }
+
+    public void aumentVersion(){
+        version++;
     }
 
     public CalendarioBase getCalendarioBase() {

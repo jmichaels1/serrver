@@ -4,11 +4,9 @@ import entity.*;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by J Michael
@@ -28,6 +26,10 @@ public class HandleOperation {
     }
 
     // APIS
+
+    private void establerConexion(){
+        dbManager = new DbManager("asico", "root", "michael123");
+    }
 
     /**
      * @param data
@@ -212,73 +214,73 @@ public class HandleOperation {
      * getPlanificacionCalendarios
      * @param data
      */
-    public void getPlanificacionCalendarios(Map<String, Object> data) throws IOException {
-        ArrayList<DiaPlanificado> planificacionDias = new ArrayList<>();
-        int iWeek = 1;
-        for (int i = 1; i<22; i++) {
-            if (iWeek == 8) iWeek = 1;
-
-            CalendarioBase cb = new CalendarioBase();
-            cb.setActive(true);
-            cb.setCursoAcademico((String) data.get("cursoAcademico"));
-            cb.setDia(20181000 + i);
-            cb.setUniversidad(((Usuario) data.get("usuario")).getUniversidad());
-
-            if (i == 12) cb.setFestivo(true);
-            ArrayList<Integer> finSemana = new ArrayList<>((Arrays.asList(6,7,13,14,20,21)));
-
-            cb.setWeekDay(iWeek++);
-
-            DiaPlanificado p1 = new DiaPlanificado();
-            DiaPlanificado p2 = new DiaPlanificado();
-
-            p1.setCalendarioBase(cb);
-            p1.setDia(cb.getDia());
-            p1.setMaster((Master) data.get("master1"));
-            p1.setUniversidad(cb.getUniversidad());
-
-            p2.setCalendarioBase(cb);
-            p2.setDia(cb.getDia());
-            p2.setMaster((Master) data.get("master2"));
-            p2.setUniversidad(cb.getUniversidad());
-
-            if (finSemana.contains(i)) cb.setFestivo(true);
-            else {
-                Sesion s = new Sesion();
-                s.setActivo(true);
-                s.setAsignatura("Programació " + i*10);
-                s.setAula("F"+i+"G");
-                s.setColorFondo("#00aa00");
-                s.setColorTexto("#000000");
-                s.setConfirmAula(true);
-                s.setConfirmContenidos(true);
-                s.setConfirmDocente1(true);
-                s.setConfirmDocente2(true);
-                s.setConfirmWarning(false);
-                s.setContenidos("CBO " + i*30);
-                s.setId(200+i);
-                s.setMaster1((Master) data.get("master1"));
-                s.setTipoAula("S");
-
-                if (i % 4 == 1) {
-                    // es común
-                    s.setMaster2(p2.getMaster());
-                    s.setNota1("Hola");
-                    s.setTipoAula("L");
-
-                    p2.setSesion(s);
-                }
-
-                p1.setSesion(s);
-            }
-
-            planificacionDias.add(p1);
-            planificacionDias.add(p2);
-        }
-        System.out.println("getPlanificacionCalendarios");
-        message = new Dato("getPlanificacionCalendarios", planificacionDias);
-        dos.writeObject(message);
-    }
+//    public void getPlanificacionCalendarios(Map<String, Object> data) throws IOException {
+//        ArrayList<DiaPlanificado> planificacionDias = new ArrayList<>();
+//        int iWeek = 1;
+//        for (int i = 1; i<22; i++) {
+//            if (iWeek == 8) iWeek = 1;
+//
+//            CalendarioBase cb = new CalendarioBase();
+//            cb.setActive(true);
+//            cb.setCursoAcademico((String) data.get("cursoAcademico"));
+//            cb.setDia(20181000 + i);
+//            cb.setUniversidad(((Usuario) data.get("usuario")).getUniversidad());
+//
+//            if (i == 12) cb.setFestivo(true);
+//            ArrayList<Integer> finSemana = new ArrayList<>((Arrays.asList(6,7,13,14,20,21)));
+//
+//            cb.setWeekDay(iWeek++);
+//
+//            DiaPlanificado p1 = new DiaPlanificado();
+//            DiaPlanificado p2 = new DiaPlanificado();
+//
+//            p1.setCalendarioBase(cb);
+//            p1.setDia(cb.getDia());
+//            p1.setMaster((Master) data.get("master1"));
+//            p1.setUniversidad(cb.getUniversidad());
+//
+//            p2.setCalendarioBase(cb);
+//            p2.setDia(cb.getDia());
+//            p2.setMaster((Master) data.get("master2"));
+//            p2.setUniversidad(cb.getUniversidad());
+//
+//            if (finSemana.contains(i)) cb.setFestivo(true);
+//            else {
+//                Sesion s = new Sesion();
+//                s.setActivo(true);
+//                s.setAsignatura("Programació " + i*10);
+//                s.setAula("F"+i+"G");
+//                s.setColorFondo("#00aa00");
+//                s.setColorTexto("#000000");
+//                s.setConfirmAula(true);
+//                s.setConfirmContenidos(true);
+//                s.setConfirmDocente1(true);
+//                s.setConfirmDocente2(true);
+//                s.setConfirmWarning(false);
+//                s.setContenidos("CBO " + i*30);
+//                s.setId(200+i);
+//                s.setMaster1((Master) data.get("master1"));
+//                s.setTipoAula("S");
+//
+//                if (i % 4 == 1) {
+//                    // es común
+//                    s.setMaster2(p2.getMaster());
+//                    s.setNota1("Hola");
+//                    s.setTipoAula("L");
+//
+//                    p2.setSesion(s);
+//                }
+//
+//                p1.setSesion(s);
+//            }
+//
+//            planificacionDias.add(p1);
+//            planificacionDias.add(p2);
+//        }
+//        System.out.println("getPlanificacionCalendarios");
+//        message = new Dato("getPlanificacionCalendarios", planificacionDias);
+//        dos.writeObject(message);
+//    }
 
     /**
      * return time
@@ -314,11 +316,18 @@ public class HandleOperation {
     }
 
     /**
+     *  insertDataInitCalendar
      * @param data
+     * @throws IOException
+     * @throws SQLException
      */
-    public void insertBaseCalendar(ArrayList<CalendarioBase> data) throws IOException {
-        dbManager.firstInsertCalendarioBase(data);
-        message = new Dato("firstInsertCalendarioBase_response", Boolean.TRUE);
+    public void insertDataInitCalendar(HashMap<String, ArrayList> data) throws IOException, SQLException {
+        establerConexion();
+        dbManager.firstInsertCalendarioBase(data.get("calendarioBase"));
+        dbManager.firstInsertPlanificaDia(data.get("planificacionDia"));
+        message = new Dato("logoutToken", Boolean.TRUE);
         dos.writeObject(message);
     }
+
+
 }

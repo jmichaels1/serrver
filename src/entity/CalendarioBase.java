@@ -17,14 +17,29 @@ public class CalendarioBase implements Serializable {
     // Solo para interfaz
     private String idDate;
 
-    public CalendarioBase() {}
-
-    public CalendarioBase(int dia, Universidad universidad, String descSpa, Integer weekDay,
-                          String idDate, String cursoAcademico) {
+    /**
+     * Metodo constructor
+     * @param dia
+     * @param universidad
+     * @param descSpa
+     * @param descCat
+     * @param weekDay
+     * @param isSummer
+     * @param isFestivo
+     * @param isActive
+     * @param cursoAcademico
+     * @param idDate
+     */
+    public CalendarioBase(int dia, Universidad universidad, String descSpa, String descCat, Integer weekDay, boolean isSummer,
+                          boolean isFestivo, boolean isActive, String cursoAcademico, String idDate) {
         this.dia = dia;
         this.universidad = universidad;
         this.descSpa = descSpa;
+        this.descCat = descCat;
         this.weekDay = weekDay;
+        this.isSummer = isSummer;
+        this.isFestivo = isFestivo;
+        this.isActive = isActive;
         this.cursoAcademico = cursoAcademico;
         this.idDate = idDate;
     }
